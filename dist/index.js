@@ -8495,6 +8495,14 @@ module.exports = require("assert");
 
 /***/ }),
 
+/***/ 3129:
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("child_process");
+
+/***/ }),
+
 /***/ 8614:
 /***/ ((module) => {
 
@@ -8658,11 +8666,23 @@ const { Octokit } = __nccwpck_require__(7196);
 const core = __nccwpck_require__(6024);
 const githubToken = core.getInput('github-token');
 const github = __nccwpck_require__(5016)
+const exec = __nccwpck_require__(3129).exec;
 async function run(){
+    exec(`./change.sh`,  function(err, stdout, stderr) {
+        if(stderr){
+            console.log("err: ", err)
+            console.log("stderr: ", stderr)
+            core.setFailed("Error: Não foi possível gerar o changelog");
+        }else{
+            console.log("stdout: ", stdout)
+            core.setOutput("changelog", "changelog gerado com sucesso");
+            let file = fs.readFileSync('./CHANGELOG.md', 'utf8').toString();
+            let fileBase64 = base64.encode(file);        
+            uploadChangelog(fileBase64, 'CHANGELOG.md')
+        }
+        
+    })
     
-    let file = fs.readFileSync('./CHANGELOG.md', 'utf8').toString();
-    let fileBase64 = base64.encode(file);        
-    uploadChangelog(fileBase64, 'CHANGELOG.md')
 }
 async function getSHA(){
     let actor = github.Context.actor

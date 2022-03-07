@@ -4,11 +4,23 @@ const { Octokit } = require("@octokit/core");
 const core = require('@actions/core');
 const githubToken = core.getInput('github-token');
 const github = require('@actions/github')
+const exec = require('child_process').exec;
 async function run(){
+    exec(`./change.sh`,  function(err, stdout, stderr) {
+        if(stderr){
+            console.log("err: ", err)
+            console.log("stderr: ", stderr)
+            core.setFailed("Error: Não foi possível gerar o changelog");
+        }else{
+            console.log("stdout: ", stdout)
+            core.setOutput("changelog", "changelog gerado com sucesso");
+            let file = fs.readFileSync('./CHANGELOG.md', 'utf8').toString();
+            let fileBase64 = base64.encode(file);        
+            uploadChangelog(fileBase64, 'CHANGELOG.md')
+        }
+        
+    })
     
-    let file = fs.readFileSync('./CHANGELOG.md', 'utf8').toString();
-    let fileBase64 = base64.encode(file);        
-    uploadChangelog(fileBase64, 'CHANGELOG.md')
 }
 async function getSHA(){
     let actor = github.Context.actor

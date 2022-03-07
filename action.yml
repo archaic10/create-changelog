@@ -7,7 +7,5 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - run: change.sh
-      shell: bash
-    - run: node dist/index.js
-      shell: bash
+    using: 'node12'
+    main: 'dist/index.js'
