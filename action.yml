@@ -1,0 +1,13 @@
+name: 'Generate changelog'
+description: 'Generate changelog'
+inputs:
+  github-token:  # id of input
+    description: 'personal access token'
+    required: true
+runs:
+  using: "composite"
+  steps:
+    - run: generate-changelog.sh
+      shell: bash
+    - run: node dist/index.js
+      shell: bash
