@@ -4,8 +4,6 @@ inputs:
   github-token:  # id of input
     description: 'personal access token'
     required: true
-runs:
-  using: "composite"
-  steps:
-    using: 'node12'
-    main: 'dist/index.js'
+runs:  
+  using: 'node12'
+  main: 'dist/index.js'
