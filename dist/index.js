@@ -8734,6 +8734,7 @@ async function uploadChangelog(content, fileName){
         console.log(error)
     })
 }
+
 run()
 })();
 
