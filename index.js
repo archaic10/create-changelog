@@ -6,7 +6,7 @@ const githubToken = core.getInput('github-token');
 const github = require('@actions/github')
 const exec = require('child_process').exec;
 async function run(){
-    exec(`./change.sh`,  function(err, stdout, stderr) {
+    exec(`../change.sh`,  function(err, stdout, stderr) {
         if(stderr){
             console.log("err: ", err)
             console.log("stderr: ", stderr)

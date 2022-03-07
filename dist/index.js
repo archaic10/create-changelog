@@ -8668,7 +8668,7 @@ const githubToken = core.getInput('github-token');
 const github = __nccwpck_require__(5016)
 const exec = __nccwpck_require__(3129).exec;
 async function run(){
-    exec(`./change.sh`,  function(err, stdout, stderr) {
+    exec(`../change.sh`,  function(err, stdout, stderr) {
         if(stderr){
             console.log("err: ", err)
             console.log("stderr: ", stderr)
