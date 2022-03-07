@@ -7,7 +7,7 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - run: generate-changelog.sh
+    - run: changelog.sh
       shell: bash
     - run: node dist/index.js
       shell: bash
