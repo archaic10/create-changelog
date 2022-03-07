@@ -1,3 +1,4 @@
+#!/bin/sh
 yarn install
 npm version patch
 yarn add auto-changelog --dev
